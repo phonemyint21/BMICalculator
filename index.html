@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BMI Calculator</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<script src="js/jquery.min.js">
+		
+	</script>
+	<script src="js/bootstrap.bundle.min.js"></script>  
+	<script type="text/javascript" src="style.css"></script>
+	<script type="text/javascript" src="vue.min.js"></script>
+	
+
+</head>
+<body>
+	<div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-4">
+            	<div id="app">
+                <h1>{{message}}</h1>
+                <label>Weight</label> <input class="form-control" type="number" v-model="weights" placeholder="KG">
+                <label>Feet</label><input type="number" class="form-control" v-model="feets" placeholder="feet" value=""> 
+                <label>Inch</label><input type="number" class="form-control" v-model="inches" placeholder="inch">
+
+                 <br>
+                <button class="btn-lg btn-success" @click='calculate'>Calculate</button>
+                <hr>
+		        <p>Your BMI is</p>
+		        <h1>{{ result }}</h1>
+		        <hr>
+                <br>
+                <br>
+                <h3>Mean</h3>
+                <p v-if='result == 0' class='bg-info'>Health is wealth</p>
+		        <p v-else-if='result > 0 && result < 18.5' class='bg-secondary'>You are Underweight</p>
+		        <p v-else-if='result >= 18.5 && result <= 24.9' class='bg-success'>You are Healthy</p>
+		        <p v-else-if='result >= 25.0 && result <= 29.9' class='bg-warning'>You are Overweight</p>
+		        <p v-else class='bg-danger'>You are Obese</p>
+				  
+				</div>
+                
+
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <script type="text/javascript">
+		var app = new Vue({
+		  el: '#app',
+		  data: {
+		    message: 'BMI calculator',
+		    feets: '',
+		    inches:'',
+		    weights: '',    
+	        result: 0,
+		  },
+		  methods: {
+              calculate(){
+             let feets = parseFloat(this.feets)
+             let inches = parseInt(this.inches)
+             let weights = parseFloat(this.weights)
+             let heights = parseFloat(Number(feets*12)+Number(inches))
+	         
+	   	     this.result =((weights/(heights*heights))*703).toFixed(1);
+      },
+     
+            }
+		})
+	</script>
+</body>
+</html>
